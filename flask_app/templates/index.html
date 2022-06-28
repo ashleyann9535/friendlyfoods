@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Template</title>
+    <title>Login Page</title>
     <!-- Bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
@@ -25,16 +25,67 @@
     />
   </head>
   <body>
-    {% with messages = get_flashed_messages() %}
-    <!-- declare a variable called messages -->
-    {% if messages %}
-    <!-- check if there are any messages -->
-    {% for message in messages %}
-    <!-- loop through the messages -->
-    <p>{{message}}</p>
-    <!-- display each message in a paragraph tag -->
-    {% endfor %} {% endif %} {% endwith %}
+    <h1 class="text-center mt-3 m-4">Gluten and Dairy Free Foods</h1>
 
-    <h1>Gluten and Dairy Free Foods</h1>
+    <div class="container d-flex justify-content-evenly">
+      <div class="box">
+        <h2>User Login</h2>
+        {% with messages = get_flashed_messages(category_filter = ['login']) %}
+        <!-- declare a variable called messages -->
+        {% if messages %}
+        <!-- check if there are any messages -->
+        {% for message in messages %}
+        <!-- loop through the messages -->
+        <p>{{message}}</p>
+        <!-- display each message in a paragraph tag -->
+        {% endfor %} {% endif %} {% endwith %}
+        <form action="/login" method="POST">
+          <label class="d-block">
+            Email
+            <input type="text" name="email" size="30" class="d-block mt-1 mb-1"/>
+          </label>
+          <label class="d-block">
+            Password
+            <input type="password" name="password" size="30" class="d-block mt-1 mb-1"/>
+          </label>
+          <input class="mt-2" type="submit" value="Login" />
+        </form>
+      </div>
+      <div class="box">
+        <h2>Register</h2>
+        {% with messages = get_flashed_messages(category_filter = ['register']) %}
+        <!-- declare a variable called messages -->
+        {% if messages %}
+        <!-- check if there are any messages -->
+        {% for message in messages %}
+        <!-- loop through the messages -->
+        <p>{{message}}</p>
+        <!-- display each message in a paragraph tag -->
+        {% endfor %} {% endif %} {% endwith %}
+        <form action="/register/user" method="POST">
+          <label class="d-block">
+            First Name
+            <input type="text" name="first_name" size="30" class="d-block mt-1 mb-1"/>
+          </label>
+          <label class="d-block">
+            Last Name
+            <input type="text" name="last_name" size="30" class="d-block mt-1 mb-1"/>
+          </label>
+          <label class="d-block">
+            Email
+            <input type="email" name="email" size="30" class="d-block mt-1 mb-1"/>
+          </label>
+          <label class="d-block">
+            Password
+            <input type="password" name="password" size="30" class="d-block mt-1 mb-1"/>
+          </label>
+          <label class="d-block">
+            Confirm Password
+            <input type="password" name="confirm_password" size="30" class="d-block mt-1 mb-1"/>
+          </label>
+          <input class="mt-2" type="submit" value="Register" />
+        </form>
+      </div>
+    </div>
   </body>
 </html>
