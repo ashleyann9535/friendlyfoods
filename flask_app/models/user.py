@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import app
 from flask import flash, session
+from flask_app.models import food
 import re
 from flask_bcrypt import Bcrypt
 
@@ -52,6 +53,37 @@ class User:
             result = cls(result[0])
 
         return result
+
+    @classmethod
+    def get_user_by_id(cls, id):
+        data = {'id' : id}
+
+        query = """
+        SELECT * FROM users
+        LEFT JOIN foods
+        ON users.id = foods.user_id
+        WHERE users.id = %(id)s
+        ;"""
+
+        result = connectToMySQL(cls.db).query_db(query, data)
+        if result:
+            this_result = cls(result[0])
+            for one_user in result:
+                info = {
+                    'id' : one_user['foods.id'],
+                    'name' : one_user['name'],
+                    'description' : one_user['description'],
+                    'location' : one_user['location'],
+                    'gluten_free' : one_user['gluten_free'],
+                    'dairy_free' : one_user['dairy_free'],
+                    'user_id' : one_user['user_id'],
+                    'created_at' : one_user['foods.created_at'],
+                    'updated_at' : one_user['foods.updated_at']
+                }
+                this_result.foods.append(food.Food(info))
+
+        print('******', this_result)
+        return this_result
 
 
 #Update 

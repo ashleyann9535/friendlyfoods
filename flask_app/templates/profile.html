@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile Page</title>
     <!-- Bootstrap -->
     <link
@@ -23,8 +23,25 @@
       type="text/css"
       href="{{ url_for('static', filename='styles.css') }}"
     />
-</head>
-<body>
-    <h1>You are registered</h1>
-</body>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar bg-light ps-5 pe-5">
+        <div class="container-fluid">
+          <p class="navbar-brand">
+            <img src="/static/src/leaf_symbol.jpg" alt="leaf" width="40" height="34" class="d-inline-block align-text-top">
+            Lifestyle
+          </p>
+          <a href="/logout"><button>Logout</button></a>
+        </div>
+      </nav>
+
+    <!-- Content -->
+    <div class="container">
+      <h1>Welcome {{this_user.first_name}}</h1>
+      <a href="/add/food"
+        ><button type="button" class="btn btn-primary">Add a Food</button></a
+      >
+    </div>
+  </body>
 </html>
