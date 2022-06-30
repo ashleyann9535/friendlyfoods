@@ -1,11 +1,12 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.models import user
 from flask_app import app
 from flask import flash, session
 
 
 # make class, class methods with SQL, and logic
 class Food:
-    db = 'gf_df_foods '
+    db = 'gf_df_foods'
 
     def __init__(self, data):
         self.id = data['id']
@@ -35,6 +36,35 @@ class Food:
         return food_id
 
 #Read 
+    @classmethod
+    def view_all_foods(cls):
+        query = """
+        SELECT * FROM foods
+        JOIN users
+        ON foods.user_id = users.id
+        ;"""
+
+        result = connectToMySQL(cls.db).query_db(query)
+        all_foods = []
+
+        if not result:
+            return result
+        for one_food in result:
+            new_food = cls(one_food)
+            this_food = {
+                'id' : one_food['users.id'],
+                'first_name' : one_food['first_name'],
+                'last_name' : one_food['last_name'],
+                'email' : one_food['email'],
+                'password' : one_food['password'],
+                'created_at' : one_food['users.created_at'],
+                'updated_at' : one_food['users.updated_at']
+            }
+
+            new_food.creator = user.User(this_food)
+            all_foods.append(new_food)
+
+        return all_foods
 
 
 #Update 

@@ -26,12 +26,12 @@
   </head>
   <body>
     <!-- Navigation Bar -->
-    <nav class="navbar bg-light ps-5 pe-5">
+    <nav class="navbar bg-light ps-5 pe-5 mb-3">
         <div class="container-fluid">
-          <p class="navbar-brand">
+          <a href="/user/profile" class="navbar-brand" >
             <img src="/static/src/leaf_symbol.jpg" alt="leaf" width="40" height="34" class="d-inline-block align-text-top">
             Lifestyle
-          </p>
+          </a>
           <a href="/logout"><button>Logout</button></a>
         </div>
       </nav>
@@ -42,6 +42,19 @@
       <a href="/add/food"
         ><button type="button" class="btn btn-primary">Add a Food</button></a
       >
+
+      {% for food in all_foods %}
+      <div class="card m-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{food.name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{food.location}}</h6>
+          <p class="card-text">{{food.description}}</p>
+          <a href="#" class="card-link">Card link</a>
+          <a href="#" class="card-link">Another link</a>
+        </div>
+      </div>
+      {% endfor %}
+
     </div>
   </body>
 </html>

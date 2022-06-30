@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Add a Food</title>
     <!-- Bootstrap -->
     <link
@@ -23,8 +23,65 @@
       type="text/css"
       href="{{ url_for('static', filename='styles.css') }}"
     />
-</head>
-<body>
-    <h1>Add a Food</h1>
-</body>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar bg-light ps-5 pe-5 mb-3">
+      <div class="container-fluid">
+        <a href="/user/profile" class="navbar-brand">
+          <img
+            src="/static/src/leaf_symbol.jpg"
+            alt="leaf"
+            width="40"
+            height="34"
+            class="d-inline-block align-text-top"
+          />
+          Lifestyle
+        </a>
+        <a href="/logout"><button>Logout</button></a>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <div class="container">
+      <h1>Add a Food</h1>
+      {% with messages = get_flashed_messages(category_filter =['create_food']) %}
+      <!-- declare a variable called messages -->
+      {% if messages %}
+      <!-- check if there are any messages -->
+      {% for message in messages %}
+      <!-- loop through the messages -->
+      <p>{{message}}</p>
+      <!-- display each message in a paragraph tag -->
+      {% endfor %} {% endif %} {% endwith %}
+      <form action="/add/food" method="POST">
+        <input type="hidden" name="user_id" value="{{session.user_id}}" />
+        <label class="d-block">
+          Name:
+          <input type="text" name="name" class='d-block mt-1 mb-1'/>
+        </label>
+        <label class="d-block">
+          Where can it be found?
+          <input type="text" name="location" class='d-block mt-1 mb-1'/>
+        </label>
+        <label class="d-block">
+          Is it gluten free?
+          <input type="radio" name="gluten_free" value="1"/> Yes
+          <input type="radio" name="gluten_free" value="0"/> No
+        </label>
+        <label class="d-block">
+            Is it dairy free?
+            <input type="radio" name="dairy_free" value="1"/> Yes
+            <input type="radio" name="dairy_free" value="0"/> No
+          </label>
+        <label class="d-block">
+          Description:
+          <textarea name="description" cols="30" rows="10" class="d-block mt-1 mb-1"></textarea>
+        </label>
+        <input type="submit" value="Create" />
+      </form>
+
+    </div>
+
+  </body>
 </html>

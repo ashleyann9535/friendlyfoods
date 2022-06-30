@@ -82,7 +82,6 @@ class User:
                 }
                 this_result.foods.append(food.Food(info))
 
-        print('******', this_result)
         return this_result
 
 
