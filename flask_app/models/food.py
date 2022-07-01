@@ -66,9 +66,53 @@ class Food:
 
         return all_foods
 
+    @classmethod
+    def view_food(cls, id):
+        data = {'id' : id}
+
+        query = """
+        SELECT * FROM foods
+        JOIN users
+        ON foods.user_id = users.id
+        WHERE foods.id = %(id)s
+        ;"""
+
+        result = connectToMySQL(cls.db).query_db(query, data)
+        the_food = []
+
+        if not result:
+            return result
+        for one_food in result:
+            new_food = cls(one_food)
+            this_food = {
+                'id' : one_food['users.id'],
+                'first_name' : one_food['first_name'],
+                'last_name' : one_food['last_name'],
+                'email' : one_food['email'],
+                'password' : one_food['password'],
+                'created_at' : one_food['users.created_at'],
+                'updated_at' : one_food['users.updated_at']
+            }
+
+            new_food.creator = user.User(this_food)
+            the_food.append(new_food)
+
+        return the_food
+
 
 #Update 
+    @classmethod
+    def update_food(cls, data):
+        if not cls.validate_food(data):
+            return False
+        query = """"
+        UPDATE foods
+        SET name = %(name)s, description = %(description)s, location = %(location)s, 
+        gluten_free = %(gluten_free)s, dairy_free = %(dairy_free)s, user_id = %(user_id)s
+        WHERE id = %(id)s
+        ;"""
 
+        return connectToMySQL(cls.db).query_db(query)
 
 #Delete 
 
@@ -85,10 +129,10 @@ class Food:
         if not data['description']:
             flash('Please let us about the food', 'create_food')
             is_valid = False
-        if not data['gluten_free']:
+        if 'gluten_free' not in data:
             flash('Is the food gluten free?', 'create_food')
             is_valid = False
-        if not data['dairy_free']:
+        if 'dairy_free' not in data:
             flash('Is the food dairy free?', 'create_food')
             is_valid = False
         return is_valid

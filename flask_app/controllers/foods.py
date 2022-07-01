@@ -21,6 +21,12 @@ def add_food():
 
 
 #Update 
-
+@app.route('/update/food/<int:id>' , methods = ['POST', 'GET'])
+def update_food(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    if request.method == 'GET':
+        this_food = food.Food.view_food(id)
+        return render_template('update_food.html', this_food = this_food)
 
 #Delete 
