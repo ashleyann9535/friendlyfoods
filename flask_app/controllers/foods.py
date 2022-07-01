@@ -1,3 +1,4 @@
+import re
 from flask_app import app
 from flask import render_template, redirect, request, session, flash
 from flask_app.models import food
@@ -28,5 +29,9 @@ def update_food(id):
     if request.method == 'GET':
         this_food = food.Food.view_food(id)
         return render_template('update_food.html', this_food = this_food)
-
+    if food.Food.update_food(request.form) == False:
+        return redirect(f'/update/food/{id}')
+    else:
+        food.Food.update_food(request.form)
+        return redirect('/user/profile')
 #Delete 

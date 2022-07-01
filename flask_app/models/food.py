@@ -97,7 +97,7 @@ class Food:
             new_food.creator = user.User(this_food)
             the_food.append(new_food)
 
-        return the_food
+        return the_food[0]
 
 
 #Update 
@@ -105,14 +105,13 @@ class Food:
     def update_food(cls, data):
         if not cls.validate_food(data):
             return False
-        query = """"
+        query = """
         UPDATE foods
-        SET name = %(name)s, description = %(description)s, location = %(location)s, 
-        gluten_free = %(gluten_free)s, dairy_free = %(dairy_free)s, user_id = %(user_id)s
+        SET name = %(name)s, description = %(description)s, location = %(location)s, gluten_free = %(gluten_free)s, dairy_free = %(dairy_free)s, user_id = %(user_id)s
         WHERE id = %(id)s
         ;"""
 
-        return connectToMySQL(cls.db).query_db(query)
+        return connectToMySQL(cls.db).query_db(query, data)
 
 #Delete 
 
