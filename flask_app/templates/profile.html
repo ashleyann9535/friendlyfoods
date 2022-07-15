@@ -44,14 +44,15 @@
       >
     <div class="row">
       {% for food in all_foods %}
-      {% if this_user.id == food.creator.id  %}
+      {% if food.active_food == 1 %}
+      {% if this_user.id == food.creator.id %}
       <div class="card m-3 col-3" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">{{food.name}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{food.location}}</h6>
           <p class="card-text">{{food.description}}</p>
           <a href="/update/food/{{food.id}}" class="card-link">Edit</a>
-          <a href="#" class="card-link">Delete</a>
+          <a href="/delete/food/{{food.id}}" class="card-link">Delete</a>
         </div>
       </div>
       {%else%}
@@ -63,6 +64,7 @@
           <a href="#" class="card-link">Like</a>
         </div>
       </div>
+      {% endif %}
       {% endif %}
       {% endfor %}
     </div>

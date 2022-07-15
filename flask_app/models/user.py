@@ -17,6 +17,7 @@ class User:
         self.last_name = data['last_name']
         self.email = data['email']
         self.password = data['password']
+        self.active_user = 1
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.foods = []
@@ -77,6 +78,7 @@ class User:
                     'gluten_free' : one_user['gluten_free'],
                     'dairy_free' : one_user['dairy_free'],
                     'user_id' : one_user['user_id'],
+                    'active_food' : one_user['active_food'],
                     'created_at' : one_user['foods.created_at'],
                     'updated_at' : one_user['foods.updated_at']
                 }

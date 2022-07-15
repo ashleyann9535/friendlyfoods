@@ -16,6 +16,7 @@ class Food:
         self.gluten_free = data['gluten_free']
         self.dairy_free = data['dairy_free']
         self.user_id = data['user_id']
+        self.active_food = 1
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.creator = None
@@ -57,13 +58,14 @@ class Food:
                 'last_name' : one_food['last_name'],
                 'email' : one_food['email'],
                 'password' : one_food['password'],
+                'active_user' : one_food['active_user'],
                 'created_at' : one_food['users.created_at'],
                 'updated_at' : one_food['users.updated_at']
             }
 
             new_food.creator = user.User(this_food)
             all_foods.append(new_food)
-
+        print(all_foods[1].active_food)
         return all_foods
 
     @classmethod
@@ -90,6 +92,7 @@ class Food:
                 'last_name' : one_food['last_name'],
                 'email' : one_food['email'],
                 'password' : one_food['password'],
+                'active_user' : one_food['active_user'],
                 'created_at' : one_food['users.created_at'],
                 'updated_at' : one_food['users.updated_at']
             }
@@ -114,6 +117,15 @@ class Food:
         return connectToMySQL(cls.db).query_db(query, data)
 
 #Delete 
+    @classmethod
+    def deactivate_food(cls, data):
+        query = """
+        UPDATE foods
+        SET active_food = 0
+        WHERE id = %(id)s
+        ;"""
+
+        return connectToMySQL(cls.db).query_db(query, data)
 
 #Validate 
     @staticmethod

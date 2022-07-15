@@ -34,4 +34,11 @@ def update_food(id):
     else:
         food.Food.update_food(request.form)
         return redirect('/user/profile')
+    
 #Delete 
+@app.route('/delete/food/<int:id>')
+def deactivate_food(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    food.Food.deactivate_food(id)
+    return redirect('/user/profile')
