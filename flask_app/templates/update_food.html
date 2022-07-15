@@ -57,6 +57,7 @@
         <form action="/update/food/{{this_food.id}}" method="POST">
           <input type="hidden" name="id" value="{{this_food.id}}" />
           <input type="hidden" name="user_id" value="{{this_food.user_id}}" />
+          <input type="hidden" name="active_food" value="1" />
           <label class="d-block">
             Name:
             <input type="text" name="name" size="50" value="{{this_food.name}}" class='d-block mt-1 mb-1'/>
@@ -79,7 +80,7 @@
             Description:
             <textarea name="description" cols="30" rows="10" class="d-block mt-1 mb-1">{{this_food.description}}</textarea>
           </label>
-          <input type="submit" value="Create" />
+          <input type="submit" value="Update" />
         </form>
   
       </div>

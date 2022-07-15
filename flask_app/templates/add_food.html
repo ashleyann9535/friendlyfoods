@@ -56,6 +56,7 @@
       {% endfor %} {% endif %} {% endwith %}
       <form action="/add/food" method="POST">
         <input type="hidden" name="user_id" value="{{session.user_id}}" />
+        <input type="hidden" name="active_food" value="1" />
         <label class="d-block">
           Name:
           <input type="text" name="name" size="50" class='d-block mt-1 mb-1'/>

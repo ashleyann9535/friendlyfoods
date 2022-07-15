@@ -30,8 +30,8 @@ class User:
             return False
         parsed_data = cls.parse_reg_data(data)
         query = """
-        INSERT INTO users(first_name, last_name, email, password)
-        VALUES( %(first_name)s, %(last_name)s, %(email)s, %(password)s)
+        INSERT INTO users(first_name, last_name, email, password, active_user)
+        VALUES( %(first_name)s, %(last_name)s, %(email)s, %(password)s, %(active_user)s)
         ;"""
 
         user_id = connectToMySQL(cls.db).query_db(query, parsed_data)

@@ -16,7 +16,7 @@ class Food:
         self.gluten_free = data['gluten_free']
         self.dairy_free = data['dairy_free']
         self.user_id = data['user_id']
-        self.active_food = 1
+        self.active_food = data['active_food']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.creator = None
@@ -28,8 +28,8 @@ class Food:
         if not cls.validate_food(data):
             return False
         query = """
-        INSERT INTO foods(name, description, location, gluten_free, dairy_free, user_id)
-        VALUES (%(name)s, %(description)s, %(location)s, %(gluten_free)s, %(dairy_free)s, %(user_id)s)
+        INSERT INTO foods(name, description, location, gluten_free, dairy_free, user_id, active_food)
+        VALUES (%(name)s, %(description)s, %(location)s, %(gluten_free)s, %(dairy_free)s, %(user_id)s, %(active_food)s)
         ;"""
 
         food_id = connectToMySQL(cls.db).query_db(query, data)
@@ -110,7 +110,7 @@ class Food:
             return False
         query = """
         UPDATE foods
-        SET name = %(name)s, description = %(description)s, location = %(location)s, gluten_free = %(gluten_free)s, dairy_free = %(dairy_free)s, user_id = %(user_id)s
+        SET name = %(name)s, description = %(description)s, location = %(location)s, gluten_free = %(gluten_free)s, dairy_free = %(dairy_free)s, user_id = %(user_id)s, active_food = %(active_food)s
         WHERE id = %(id)s
         ;"""
 
