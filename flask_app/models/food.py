@@ -118,7 +118,8 @@ class Food:
 
 #Delete 
     @classmethod
-    def deactivate_food(cls, data):
+    def deactivate_food(cls, id):
+        data = {'id' : id}
         query = """
         UPDATE foods
         SET active_food = 0
